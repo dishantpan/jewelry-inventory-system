@@ -13,7 +13,7 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<Category> getAllActiveCategories(){
-        return categoryRepository.findAll();
+        return categoryRepository.findAllByDeletedFalse();
     }
 
     public Category createCategory(Category category) {
@@ -22,7 +22,7 @@ public class CategoryService {
     }
 
     public Category getCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId)
+        return categoryRepository.findByCategoryIdAndDeletedFalse(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category with id " + categoryId + " not found"));
     }
 
@@ -31,4 +31,5 @@ public class CategoryService {
         existingCategory.setDeleted(true);
         categoryRepository.save(existingCategory);
     }
+
 }

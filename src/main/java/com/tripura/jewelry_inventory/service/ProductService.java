@@ -39,11 +39,11 @@ public class ProductService {
     }
 
     public List<Product> getAllActiveProducts() {
-        return productRepository.findAll();
+        return productRepository.findAllByDeletedFalse();
     }
 
     public Product getProductById(Long productId) {
-        return productRepository.findById(productId)
+        return productRepository.findByProductIdAndDeletedFalse(productId)
                 .orElseThrow(() -> new RuntimeException(
                         "Product with id " + productId + " not found"
                 ));

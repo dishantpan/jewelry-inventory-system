@@ -26,7 +26,7 @@ public class Category {
     private Double makingChargePercentage;
 
     @Column(nullable = false)
-    private boolean Deleted = false;
+    private Boolean deleted = false;
 
 
 }

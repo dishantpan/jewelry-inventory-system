@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = " product")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,5 +36,5 @@ public class Product {
     private BigDecimal ratePerGram;
 
     @Column(nullable = false)
-    private boolean isDeleted = false;
+    private Boolean deleted = false;
 }
