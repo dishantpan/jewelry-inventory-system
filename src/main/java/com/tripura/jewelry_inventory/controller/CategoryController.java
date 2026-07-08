@@ -4,10 +4,12 @@ import com.tripura.jewelry_inventory.dto.request.CategoryRequestDTO;
 import com.tripura.jewelry_inventory.dto.response.CategoryResponseDTO;
 import com.tripura.jewelry_inventory.entity.Category;
 import com.tripura.jewelry_inventory.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +40,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryResponseDTO> createCategory(
-            @RequestBody CategoryRequestDTO requestDTO) {
+            @Valid @RequestBody CategoryRequestDTO requestDTO) {
         Category savedCategory = categoryService.createCategory(convertToEntity(requestDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDTO(savedCategory));
     }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -56,7 +57,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(
-            @RequestBody ProductRequestDTO requestDTO) {
+           @Valid @RequestBody ProductRequestDTO requestDTO) {
         Product savedProduct = productService.createProduct(convertToEntity(requestDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(convertToResponseDTO(savedProduct));
     }
