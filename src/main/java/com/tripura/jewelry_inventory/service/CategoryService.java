@@ -1,9 +1,11 @@
 package com.tripura.jewelry_inventory.service;
 
 import com.tripura.jewelry_inventory.entity.Category;
+import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 import com.tripura.jewelry_inventory.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class CategoryService {
 
     public Category getCategoryById(Long categoryId) {
         return categoryRepository.findByCategoryIdAndDeletedFalse(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category with id " + categoryId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category with id " + categoryId + " not found"));
     }
 
     public void softDeleteCategory(Long categoryId) {

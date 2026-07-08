@@ -2,9 +2,11 @@ package com.tripura.jewelry_inventory.service;
 
 import com.tripura.jewelry_inventory.entity.Category;
 import com.tripura.jewelry_inventory.entity.Product;
+import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 import com.tripura.jewelry_inventory.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -44,7 +46,7 @@ public class ProductService {
 
     public Product getProductById(Long productId) {
         return productRepository.findByProductIdAndDeletedFalse(productId)
-                .orElseThrow(() -> new RuntimeException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Product with id " + productId + " not found"
                 ));
     }
