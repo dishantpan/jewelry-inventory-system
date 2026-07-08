@@ -23,10 +23,10 @@ public class Category {
     private String description;
 
     @Column(nullable = false)
-    private Double makingChargesPercentage;
+    private Double makingChargePercentage;
 
     @Column(nullable = false)
-    private boolean isDeleted = false;
+    private boolean Deleted = false;
 
 
 }
