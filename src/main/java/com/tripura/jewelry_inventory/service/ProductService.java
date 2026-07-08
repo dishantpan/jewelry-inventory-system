@@ -11,6 +11,7 @@ import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import com.tripura.jewelry_inventory.dto.request.ProductRequestDTO;
 
 @Service
 public class ProductService {
@@ -55,6 +56,16 @@ public class ProductService {
         Product existingProduct = getProductById(productId);
         existingProduct.setDeleted(true);
         productRepository.save(existingProduct);
+    }
+    // existing product update karna
+    public Product updateProduct(Long productId, ProductRequestDTO requestDTO) {
+        Product existingProduct = getProductById(productId);
+        existingProduct.setProductName(requestDTO.getProductName());
+        existingProduct.setWeightInGrams(requestDTO.getWeightInGrams());
+        existingProduct.setRatePerGram(requestDTO.getRatePerGram());
+        Category category = categoryService.getCategoryById(requestDTO.getCategoryId());
+        existingProduct.setCategory(category);
+        return productRepository.save(existingProduct);
     }
 }
 

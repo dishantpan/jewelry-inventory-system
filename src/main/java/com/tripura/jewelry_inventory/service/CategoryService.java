@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 
 import java.util.List;
+import com.tripura.jewelry_inventory.dto.request.CategoryRequestDTO;
 
 @Service
 public class CategoryService {
@@ -32,6 +33,14 @@ public class CategoryService {
         Category existingCategory = getCategoryById(categoryId);
         existingCategory.setDeleted(true);
         categoryRepository.save(existingCategory);
+    }
+    // existing category update karna — sirf active categories update ho sakti hain
+    public Category updateCategory(Long categoryId, CategoryRequestDTO requestDTO) {
+        Category existingCategory = getCategoryById(categoryId);
+        existingCategory.setCategoryName(requestDTO.getCategoryName());
+        existingCategory.setDescription(requestDTO.getDescription());
+        existingCategory.setMakingChargePercentage(requestDTO.getMakingChargePercentage());
+        return categoryRepository.save(existingCategory);
     }
 
 }

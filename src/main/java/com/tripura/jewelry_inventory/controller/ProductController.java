@@ -82,4 +82,12 @@ public class ProductController {
         productService.softDeleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+    // PUT /api/products/{id} — existing product update karna
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestBody ProductRequestDTO requestDTO) {
+        Product updatedProduct = productService.updateProduct(id, requestDTO);
+        return ResponseEntity.ok(convertToResponseDTO(updatedProduct));
+    }
 }

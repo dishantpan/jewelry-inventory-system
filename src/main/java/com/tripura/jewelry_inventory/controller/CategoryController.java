@@ -66,4 +66,11 @@ public class CategoryController {
         categoryService.softDeleteCategory(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> updateCategory(
+            @PathVariable Long id,
+            @Valid @RequestBody CategoryRequestDTO requestDTO) {
+        Category updatedCategory = categoryService.updateCategory(id, requestDTO);
+        return ResponseEntity.ok(convertToResponseDTO(updatedCategory));
+    }
 }
