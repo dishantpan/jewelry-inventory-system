@@ -6,6 +6,7 @@ import com.tripura.jewelry_inventory.entity.Category;
 import com.tripura.jewelry_inventory.entity.Product;
 import com.tripura.jewelry_inventory.service.CategoryService;
 import com.tripura.jewelry_inventory.service.ProductService;
+import com.tripura.jewelry_inventory.strategy.PricingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private PricingStrategy pricingStrategy;
+
     private Product convertToEntity(ProductRequestDTO requestDTO) {
         Product product = new Product();
         product.setProductName(requestDTO.getProductName());
@@ -44,14 +48,11 @@ public class ProductController {
         responseDTO.setCategoryName(product.getCategory().getCategoryName());
         responseDTO.setWeightInGrams(product.getWeightInGrams());
         responseDTO.setRatePerGram(product.getRatePerGram());
-        BigDecimal makingChargePercentage = BigDecimal
-                .valueOf(product.getCategory().getMakingChargePercentage());
-        BigDecimal makingChargeMultiplier = BigDecimal.ONE
-                .add(makingChargePercentage.divide(BigDecimal.valueOf(100)));
-        BigDecimal totalPrice = product.getWeightInGrams()
-                .multiply(product.getRatePerGram())
-                .multiply(makingChargeMultiplier);
-        responseDTO.setTotalPrice(totalPrice);
+        responseDTO.setTotalPrice(pricingStrategy.calculateTotalPrice(
+                product.getWeightInGrams(),
+                product.getRatePerGram(),
+                BigDecimal.valueOf(product.getCategory().getMakingChargePercentage())
+        ));
         return responseDTO;
     }
 

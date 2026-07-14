@@ -7,8 +7,6 @@ import com.tripura.jewelry_inventory.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import com.tripura.jewelry_inventory.dto.request.ProductRequestDTO;
 
@@ -19,17 +17,6 @@ public class ProductService {
 
     @Autowired
     private CategoryService categoryService;
-
-    private BigDecimal calculatetotalPrice(BigDecimal weightInGrams,
-                                           BigDecimal rateperGram,
-                                           BigDecimal makingChargesPercentage) {
-        BigDecimal makingCargeMultiplier = BigDecimal.ONE
-                .add(makingChargesPercentage.divide(BigDecimal.valueOf(100)));
-        return weightInGrams
-                .multiply(rateperGram)
-                .multiply(makingCargeMultiplier)
-                .setScale(2, RoundingMode.HALF_UP);
-    }
 
     public Product createProduct(Product product) {
         Category category = categoryService.getCategoryById(
