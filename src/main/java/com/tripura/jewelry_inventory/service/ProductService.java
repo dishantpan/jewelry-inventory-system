@@ -6,7 +6,6 @@ import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 import com.tripura.jewelry_inventory.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.tripura.jewelry_inventory.exception.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -57,7 +56,6 @@ public class ProductService {
         existingProduct.setDeleted(true);
         productRepository.save(existingProduct);
     }
-    // existing product update karna
     public Product updateProduct(Long productId, ProductRequestDTO requestDTO) {
         Product existingProduct = getProductById(productId);
         existingProduct.setProductName(requestDTO.getProductName());

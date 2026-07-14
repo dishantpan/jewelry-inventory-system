@@ -82,7 +82,6 @@ public class ProductController {
         productService.softDeleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-    // PUT /api/products/{id} — existing product update karna
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(
             @PathVariable Long id,

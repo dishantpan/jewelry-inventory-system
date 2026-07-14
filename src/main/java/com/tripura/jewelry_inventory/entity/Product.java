@@ -8,8 +8,6 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "product")
 @Getter
@@ -30,7 +28,7 @@ public class Product {
     private Category category;
 
     @Column(nullable = false, precision = 10, scale = 3)
-    private BigDecimal WeightInGrams;
+    private BigDecimal weightInGrams;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal ratePerGram;
